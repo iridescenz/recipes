@@ -6,13 +6,16 @@ export default function Card({
     ingredients,
     image,
     id,
-    instructions
+    instructions,
 }) {
+    const handleClick = () => {
+        console.log(id)
+        }
     return (
         <div className='container-element'>
         <div>{id}</div>
-            <p>{title}</p>
-             <img src={image} />
+            <p onClick={handleClick}>{title}</p>
+             <img src={image} onClick={handleClick}/>
              <br />
              <ul>{ingredients}</ul>
              <ol>{instructions}</ol>
