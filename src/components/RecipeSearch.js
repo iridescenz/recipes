@@ -25,19 +25,19 @@ import Card from './Card'
 console.log(randomData)
 
   let elem = 
-  (randomData && randomData.recipes.map((el) => 
+  (!data ? randomData && randomData.recipes.map((el) => 
     (<Card key={el.id}
     id={el.id}
     title={el.title}
     image={el.image}
     />))
-  || (data && data.results.map((el) => 
+: data && data.results.map((el) => 
   (<Card key={el.id}
   id={el.id}
   title={el.title}
   image={el.image}
   />)))
-  )
+  
 
     return (
         <>
@@ -49,7 +49,7 @@ console.log(randomData)
                    value={results}
                    onChange={(e) => {setResults(e.target.value)}}
                    placeholder="i.e. Keto pancakes"/>
-            <button className="button" type="submit" onClick={() => setRandomData('')}>Search</button>
+            <button className="button" type="submit" onClick={() => setRandomData}>Search</button>
         </form>
     <div>{elem}</div> 
         </>
