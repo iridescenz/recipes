@@ -16,29 +16,28 @@ import Card from './Card'
       setResults('')
     }
 
-      useEffect(() => {
+      useEffect(async () => {
       const apiKey = `1a9c47442e0b4afb8a9feb3c51a49e09`
-      axios.get(`https://api.spoonacular.com/recipes/random?number=25&tags=paleo&apiKey=${apiKey}`)
-      .then(res => setRandomData(res.data))
-      .catch(er => console.log(er))
+      const result = await axios.get(`https://api.spoonacular.com/recipes/random?number=25&tags=paleo&apiKey=${apiKey}`)
+      setRandomData(result.data)
      }, [])
      
-console.log(data)
 console.log(randomData)
 
-  let elem = data 
-    && data.results.map((el) => 
-      <Card key={el.id}
-      id={el.id}
-      title={el.title}
-      image={el.image}
-      />) &&
-    randomData.recipes.map((el) => 
-    <Card key={el.id}
+  let elem = 
+  (randomData && randomData.recipes.map((el) => 
+    (<Card key={el.id}
     id={el.id}
     title={el.title}
     image={el.image}
-    /> )
+    />))
+  || (data && data.results.map((el) => 
+  (<Card key={el.id}
+  id={el.id}
+  title={el.title}
+  image={el.image}
+  />)))
+  )
 
     return (
         <>
@@ -50,7 +49,7 @@ console.log(randomData)
                    value={results}
                    onChange={(e) => {setResults(e.target.value)}}
                    placeholder="i.e. Keto pancakes"/>
-            <button className="button" type="submit">Search</button>
+            <button className="button" type="submit" onClick={() => setRandomData('')}>Search</button>
         </form>
     <div>{elem}</div> 
         </>
